@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+<br><br><br><br><br>
+<center><h1 class="display-4">Bem vindo, {{ user.get_short_name }}!!</h1>
+
+    <h5>Seus Anúncios</h5>
+</center>
+
+<div class="container">
+    <div class="row">
+        {% for animal in page_obj %}
+        <div class="col-sm-12 col-md-6 col-lg-4" data-toggle="modal" data-target="#modal{{animal.id}}">
+
+            <div class="polaroid">
+                <img src="{{ animal.image.url }}" alt="Norway" style="width:100%">
+                <div class="container">
+                    <p>{{ animal.nome }}</p>
+                </div>
+            </div>
+
+            <br>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="modal{{animal.id}}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Gerenciar Animal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!--                            <div class="row">-->
+                            <div class="col-xs-7 col-sm-6 col-lg-8">
+                                <div style="border-color: gray; border-style: solid; width: 356px; height: 300px;">
+                                    <img src="{{ animal.image.url }}" alt="Norway" width="350" height="294"
+                                         style="margin-top: 0px;">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-7 col-sm-6 col-lg-8">
+                                <h4>Você quer apagar {{animal.nome}}?</h4>
+                            </div>
+                            <!--                            </div>-->
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-warning" href="{% url 'upd_animal' animal.pk %}">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'del_animal' animal.pk %}">Apagar</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<nav aria-label="navegacao-paginacao">
+    <ul class="nav justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link"
+                                 href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+        {% endif %}
+
+        {% for num in paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+        {% endif %}
+
+    </ul>
+
+</nav>
+
+
+{% endblock %}

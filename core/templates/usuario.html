@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Adcionar Usuário</title>
+	{% bootstrap_css %}
+</head>
+<body>
+<div class="container">
+	<br>
+	<h1>
+		<center>Cadastrar Usuário</center>
+	</h1>
+	{% bootstrap_messages %}
+	<form action="{% url 'create_user' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% buttons %}
+		<button type="submit" class="btn btn-primary">Adcionar</button>
+		{% endbuttons %}
+	</form>
+</div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

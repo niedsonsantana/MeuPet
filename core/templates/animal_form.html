@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<br><br><br><br>
+
+<div class="container">
+    <h1>Animais</h1>
+    <form method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a class="btn btn-primary" href="{% url 'index' %}" role="button">Cancelar</a>
+
+        {% endbuttons %}
+    </form>
+</div>
+{% endblock %}
