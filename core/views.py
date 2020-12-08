@@ -31,7 +31,7 @@ class CreateAnimalView(LoginRequiredMixin, CreateView):
 class UpdateAnimalView(LoginRequiredMixin, UpdateView):
     model = Animal
     template_name = 'animal_update.html'
-    fields = ['nome', 'porte', 'cor', 'castrado', 'tipo', 'image', 'info']
+    fields = ['nome', 'porte', 'cor', 'castrado', 'tipo', 'cidade', 'image', 'info']
 
     def get_success_url(self):
         return reverse_lazy('page_user',  kwargs={'pk': self.request.user.pk})
